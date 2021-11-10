@@ -1,0 +1,50 @@
+---
+- hosts: all
+  gather_facts: no
+  vars:
+    string: "string"
+    list:
+      - item1
+      - item2
+    dict:
+      key1: value1
+      key2: value2
+    object:
+      k1: "string"
+      k2: [ "item1", "item2" ]
+      k3: { 'i1': 'v1', 'i2': 'v2' }
+  tasks:
+    - debug: msg="dict is mapping"
+      when: dict is mapping
+    - debug: msg="list is mapping"
+      when: list is mapping
+    - debug: msg="string is mapping"
+      when: string is mapping
+    - debug: msg="dict is sequence"
+      when: dict is sequence
+    - debug: msg="list is sequence"
+      when: list is sequence
+    - debug: msg="string is sequence"
+      when: string is sequence
+    - debug: msg="dict is iterable"
+      when: dict is iterable
+    - debug: msg="list is iterable"
+      when: list is iterable
+    - debug: msg="string is iterable"
+      when: string is iterable
+    - debug: msg="dict is string"
+      when: dict is string
+    - debug: msg="list is string"
+      when: list is string
+    - debug: msg="string is string"
+      when: string is string
+    - copy:
+        dest: /tmp/variable.txt
+        content: |
+          {% for k,v in object.iteritems() %}
+          {% if v is string %}string: {{ v }}
+          {% elif v is mapping %}{% for j,l in v.iteritems() %}{{ j }}: {{ l }}\n{% endfor %}
+          {% elif v is sequence %}{% for n in v %}- {{ n }}\n{% endfor %}
+          {% else %}huh?
+          {% endif %}
+          {% endfor %}

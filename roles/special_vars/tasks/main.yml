@@ -1,0 +1,73 @@
+---
+
+- name: Dump Ansible pecial variables
+  debug:
+    var: "{{ item }}"
+  loop:
+
+  # Paths
+    - ansible_playbook_python
+    - ansible_search_path
+    - role_path
+
+    - ansible_config_file
+    - inventory_dir
+    - playbook_dir
+    - ansible_inventory_sources
+
+  # Command line flags
+    - ansible_check_mode
+    - ansible_diff_mode
+    - ansible_forks
+    - ansible_limit
+    - ansible_run_tags
+    - ansible_skip_tags
+    - ansible_verbosity
+
+  # Loop context
+    - ansible_loop
+    - ansible_loop_var
+    - ansible_index_var
+
+  # Play context
+    - ansible_play_batch
+    - ansible_play_hosts
+    - ansible_play_hosts_all
+    - ansible_play_role_names
+    - ansible_role_names
+
+  # Role context
+    - ansible_role_name
+    - ansible_collection_name
+    - ansible_dependent_role_names
+    - ansible_parent_role_names
+    - ansible_parent_role_paths
+
+  # Other and misc
+    - ansible_version
+
+  # Inventory
+    - group_names
+    - inventory_hostname
+    - inventory_hostname_short
+    - inventory_file
+    - ansible_play_name
+    - role_name
+
+  # Not relevant: - omit
+  # Deprecated: - play_hosts
+  # Deprecated: - role_names
+
+#- name: Dump groups and hostvars
+#  debug:
+#    var: "{{ item }}"
+#  loop:
+#   - hostvars
+#   - groups
+
+#- name: Dump ansible facts and local
+#  debug:
+#    var: "{{ item }}"
+#  loop:
+#    - ansible_facts
+#    - ansible_local
